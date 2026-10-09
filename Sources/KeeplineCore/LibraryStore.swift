@@ -50,7 +50,7 @@ public final class LibraryStore {
     public static func encode(_ library: Library) throws -> Data {
         let encoder = JSONEncoder()
         encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
-        encoder.dateEncodingStrategy = .iso8601
+        encoder.dateEncodingStrategy = .deferredToDate
         return try encoder.encode(library.validated())
     }
 
@@ -58,7 +58,7 @@ public final class LibraryStore {
         guard data.count <= 1_048_576 else { throw LineError.invalidBackup }
         do {
             let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .iso8601
+            decoder.dateDecodingStrategy = .deferredToDate
             return try decoder.decode(Library.self, from: data).validated()
         } catch { throw LineError.invalidBackup }
     }

@@ -54,5 +54,7 @@ test('responsive layout, links, keyboard focus, and accessibility', async ({ pag
   const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
   expect(results.violations).toEqual([]);
   await expect(page.getByRole('link', { name: 'Open the iPhone setup guide' })).toHaveAttribute('href', /APPLE-SETUP.md/);
+  await page.evaluate(() => (document.activeElement as HTMLElement)?.blur());
+  await page.screenshot({ path: `../docs/screenshots/site-${testInfo.project.name}-viewport.png` });
   await page.screenshot({ path: `../docs/screenshots/site-${testInfo.project.name}.png`, fullPage: true });
 });

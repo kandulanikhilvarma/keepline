@@ -15,8 +15,11 @@ struct EditorView: View {
     @State private var initialPeriod: Period = .always
     @State private var initialStart = Date()
     @State private var initialEnd = Date()
+    @State private var renewPeriod = false
+    @State private var pin = false
+    @State private var initialPin = false
     @FocusState private var textFocused: Bool
-    private var dirty: Bool { text != initialText || period != initialPeriod || (period == .custom && (start != initialStart || end != initialEnd)) }
+    private var dirty: Bool { text != initialText || period != initialPeriod || pin != initialPin || renewPeriod || (period == .custom && (start != initialStart || end != initialEnd)) }
 
     var body: some View {
         NavigationStack {
@@ -33,10 +36,12 @@ struct EditorView: View {
                         DatePicker("Start date", selection: $start, displayedComponents: .date)
                         DatePicker("End date", selection: $end, displayedComponents: .date)
                     } else if period != .always {
-                        let bounds = existing?.period == period ? (existing?.startDay, existing?.endDay) : Day.bounds(period, at: Date())
+                        let bounds = existing?.period == period && !renewPeriod ? (existing?.startDay, existing?.endDay) : Day.bounds(period, at: Date())
                         Text("\(bounds.0 ?? "") to \(bounds.1 ?? "")").font(.caption)
-                        if existing?.period == period { Button("Use the current period") { let b = Day.bounds(period, at: Date()); start = parse(b.0); end = parse(b.1); initialPeriod = .custom } }
+                        if existing?.period == period { Button("Use the current period") { renewPeriod = true } }
                     }
+                    Toggle("Keep this line pinned", isOn: $pin)
+                    Text("An active pinned line stays visible until you unpin it.").font(.footnote).foregroundStyle(.secondary)
                 }
                 if let error { Section { Text(error).foregroundStyle(.red).accessibilityIdentifier("editorError") } }
             }
@@ -56,6 +61,7 @@ struct EditorView: View {
                 text = existing?.text ?? ""; period = existing?.period ?? .always
                 start = parse(existing?.startDay); end = parse(existing?.endDay)
                 initialText = text; initialPeriod = period; initialStart = start; initialEnd = end
+                pin = existing?.id == model.library.pinnedID && existing != nil; initialPin = pin
             }
         }
     }
@@ -69,10 +75,15 @@ struct EditorView: View {
         var line = existing ?? Line(text: text)
         line.text = text; line.period = period
         if period == .custom { line.startDay = Day.key(start); line.endDay = Day.key(end) }
-        else if existing?.period != period || initialPeriod == .custom {
+        else if existing?.period != period || renewPeriod {
             let bounds = Day.bounds(period, at: Date()); line.startDay = bounds.0; line.endDay = bounds.1
         } else if existing == nil { line.startDay = nil; line.endDay = nil }
-        if model.change({ try $0.upsert(line) }) { dismiss() }
+        if pin && !line.isActive(at: Date()) { error = "Only an active line can stay pinned. Change its period or turn off the pin."; return }
+        if model.change({ library in
+            try library.upsert(line)
+            if pin { library.pinnedID = line.id }
+            else if library.pinnedID == line.id { library.pinnedID = nil }
+        }) { dismiss() }
         else { error = model.error }
     }
 }

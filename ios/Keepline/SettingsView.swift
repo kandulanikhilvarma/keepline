@@ -40,7 +40,7 @@ struct SettingsView: View {
                 Section("Privacy") {
                     Text("Your lines stay on this iPhone. Keepline uses no account, advertising, analytics, or remote database.")
                     Text("The home-screen widget displays your words to anyone who can see your screen.").font(.footnote).foregroundStyle(.secondary)
-                    Link("Privacy and setup", destination: URL(string: "https://keepline.vercel.app/#privacy")!)
+                    Link("Privacy and setup", destination: URL(string: "https://keepline-weld.vercel.app/#privacy")!)
                 }
                 Section { Text("Keepline 1.0.0"); Text("Your own words, in sight.").foregroundStyle(.secondary) }
             }.navigationTitle("Settings")

@@ -1,27 +1,68 @@
 import XCTest
 
 final class KeeplineUITests: XCTestCase {
+    private func enter(_ text: String, in app: XCUIApplication) {
+        let field = app.textFields["lineText"]
+        if field.waitForExistence(timeout: 3) { field.tap(); field.typeText(text) }
+        else { let field = app.textViews["lineText"]; field.tap(); field.typeText(text) }
+    }
+    private func contains(_ text: String, in app: XCUIApplication) -> XCUIElement {
+        app.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", text)).firstMatch
+    }
+    private func row(_ text: String, in app: XCUIApplication) -> XCUIElement {
+        app.buttons.matching(NSPredicate(format: "label CONTAINS %@", text)).firstMatch
+    }
     func testCreateEditAndPersistence() throws {
         let app = XCUIApplication()
         app.launchArguments = ["--ui-test-reset"]
         app.launch()
         XCTAssertTrue(app.buttons["firstLine"].waitForExistence(timeout: 10))
         app.buttons["firstLine"].tap()
-        let field = app.textFields["lineText"]
-        let multiline = app.textViews["lineText"]
-        if field.waitForExistence(timeout: 3) { field.tap(); field.typeText("Be calm.") }
-        else { multiline.tap(); multiline.typeText("Be calm.") }
+        enter("Be calm.", in: app)
         app.buttons["saveLine"].tap()
-        XCTAssertTrue(app.staticTexts["Be calm."].waitForExistence(timeout: 5))
+        XCTAssertTrue(contains("Be calm.", in: app).waitForExistence(timeout: 5))
         let shot = XCTAttachment(screenshot: app.screenshot()); shot.name = "in-sight"; shot.lifetime = .keepAlways; add(shot)
         app.terminate(); app.launchArguments = []; app.launch()
-        XCTAssertTrue(app.staticTexts["Be calm."].waitForExistence(timeout: 10))
+        XCTAssertTrue(contains("Be calm.", in: app).waitForExistence(timeout: 10))
         app.tabBars.buttons["Library"].tap()
-        app.buttons.containing(.staticText, identifier: "Be calm.").firstMatch.tap()
+        row("Be calm.", in: app).tap()
         app.buttons["Cancel"].tap()
-        XCTAssertTrue(app.staticTexts["Be calm."].waitForExistence(timeout: 3))
+        XCTAssertTrue(contains("Be calm.", in: app).waitForExistence(timeout: 3))
         app.tabBars.buttons["Settings"].tap()
         XCTAssertTrue(app.buttons["Export backup"].exists)
         let settings = XCTAttachment(screenshot: app.screenshot()); settings.name = "settings"; settings.lifetime = .keepAlways; add(settings)
+    }
+
+    func testArchiveRestoreDeleteAndPin() throws {
+        let app = XCUIApplication(); app.launchArguments = ["--ui-test-reset"]; app.launch()
+        XCTAssertTrue(app.buttons["firstLine"].waitForExistence(timeout: 10)); app.buttons["firstLine"].tap()
+        enter("Read 5 books this month.", in: app)
+        app.switches["Keep this line pinned"].tap()
+        app.buttons["saveLine"].tap()
+        XCTAssertTrue(contains("pinned line", in: app).waitForExistence(timeout: 5))
+        app.tabBars.buttons["Library"].tap()
+        let entry = row("Read 5 books", in: app)
+        XCTAssertTrue(entry.waitForExistence(timeout: 5))
+        entry.press(forDuration: 1.2); app.buttons["Archive"].tap()
+        XCTAssertTrue(contains("No lines here", in: app).waitForExistence(timeout: 5))
+        app.buttons["Archived"].tap()
+        let archived = row("Read 5 books", in: app)
+        XCTAssertTrue(archived.waitForExistence(timeout: 5))
+        archived.press(forDuration: 1.2); app.buttons["Restore"].tap()
+        app.buttons["Current"].tap()
+        XCTAssertTrue(entry.waitForExistence(timeout: 5))
+        entry.press(forDuration: 1.2); app.buttons["Delete"].tap()
+        app.buttons["Delete line"].tap()
+        XCTAssertTrue(contains("No lines here", in: app).waitForExistence(timeout: 5))
+    }
+
+    func testEmptyAndOversizedTextCannotSave() throws {
+        let app = XCUIApplication(); app.launchArguments = ["--ui-test-reset"]; app.launch()
+        XCTAssertTrue(app.buttons["firstLine"].waitForExistence(timeout: 10)); app.buttons["firstLine"].tap()
+        XCTAssertFalse(app.buttons["saveLine"].isEnabled)
+        enter(String(repeating: "a", count: 141), in: app)
+        XCTAssertFalse(app.buttons["saveLine"].isEnabled)
+        app.buttons["Cancel"].tap(); app.buttons["Discard changes"].tap()
+        XCTAssertTrue(app.buttons["firstLine"].waitForExistence(timeout: 5))
     }
 }

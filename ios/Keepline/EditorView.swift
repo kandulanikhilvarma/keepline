@@ -40,7 +40,7 @@ struct EditorView: View {
                         Text("\(bounds.0 ?? "") to \(bounds.1 ?? "")").font(.caption)
                         if existing?.period == period { Button("Use the current period") { renewPeriod = true } }
                     }
-                    Toggle("Keep this line pinned", isOn: $pin)
+                    Toggle("Keep this line pinned", isOn: $pin).accessibilityIdentifier("pinLine")
                     Text("An active pinned line stays visible until you unpin it.").font(.footnote).foregroundStyle(.secondary)
                 }
                 if let error { Section { Text(error).foregroundStyle(.red).accessibilityIdentifier("editorError") } }

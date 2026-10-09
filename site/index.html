@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f4f2e9" />
+    <meta name="description" content="Keepline keeps your own words and goals in sight with a rectangular iPhone home-screen widget. Free, private, and built for a glance." />
+    <title>Keepline — Your own words, in sight.</title>
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header>
+      <a class="brand" href="#main" aria-label="Keepline home"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="7"/><path d="M9 11h14M9 16h10M9 21h14"/></svg>Keepline</a>
+      <nav aria-label="Main navigation"><a href="#how">How it works</a><a href="#setup">iPhone setup</a><a class="source" href="https://github.com/kandulanikhilvarma/keepline">Get the source <span aria-hidden="true">↗</span></a></nav>
+    </header>
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <h1 id="hero-title">Keep your<br/>words <em>close.</em></h1>
+          <p class="intro">That one word. This month’s goal. The thing you don’t want to forget. A quiet place for it, right on your iPhone home screen.</p>
+          <a class="button" href="#try">Try your own line <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+          <p class="availability">Free source release · iPhone app · App Store release pending</p>
+        </div>
+        <div class="widget-stage">
+          <div class="widget" role="img" aria-label="Example rectangular widget: Be calm.">
+            <div class="widget-top"><span id="widget-period">Always</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h16"/></svg></div>
+            <p id="widget-line">Be calm.</p>
+            <div class="widget-bottom">Keep it in sight.<span aria-hidden="true" class="small-dot"></span></div>
+          </div>
+          <p class="widget-caption" id="preview-label">Illustrative preview · medium rectangular widget</p>
+          <div class="horizon"><span>Your day</span><span>Your month</span><span>Your year</span><svg viewBox="0 0 340 24" preserveAspectRatio="none" aria-hidden="true"><path d="M0 12h340"/><circle cx="8" cy="12" r="5"/><circle cx="170" cy="12" r="5"/><circle cx="332" cy="12" r="5"/></svg></div>
+        </div>
+      </section>
+      <section class="try" id="try" aria-labelledby="try-title">
+        <div><h2 id="try-title">What do you want<br/>to remember?</h2><p>Write it as you would say it.<br/>The preview above changes with your words.</p><p class="quiet">This browser preview saves one draft on this browser. It does not sync with an iPhone or install a widget.</p></div>
+        <form id="preview-form" novalidate>
+          <label for="line">Your line</label>
+          <textarea id="line" rows="2" placeholder="For example: Be calm." aria-describedby="line-help form-status"></textarea>
+          <div class="field-foot"><span id="line-help">One thought, up to 140 characters.</span><span id="count">0 / 140</span></div>
+          <div class="period-row"><label for="period">Keep it in sight</label><select id="period"><option value="always">Always</option><option value="today">Today</option><option value="month">This month</option><option value="year">This year</option><option value="custom">Custom dates</option></select></div>
+          <div class="date-fields" id="date-fields" hidden><div><label for="start">Start date</label><input id="start" type="date" /></div><div><label for="end">End date</label><input id="end" type="date" /></div></div>
+          <div class="form-actions"><button class="button" id="save" type="submit" disabled>Save browser draft</button><button class="text-button" id="clear" type="button">Clear draft</button></div>
+          <p id="form-status" role="status" aria-live="polite">Your draft starts empty.</p>
+        </form>
+      </section>
+      <section class="how" id="how" aria-labelledby="how-title">
+        <h2 id="how-title">Your words. A little more often.</h2>
+        <div class="steps"><article><span class="step-mark" aria-hidden="true">1</span><h3>Write a line</h3><p>Save what matters to you. One word, a short reminder, or a goal in your own words.</p></article><article><span class="step-mark" aria-hidden="true">2</span><h3>Give it a period</h3><p>Today, this month, this year, or your own dates. Keep a daily reminder active with “Always”.</p></article><article><span class="step-mark" aria-hidden="true">3</span><h3>Keep it in sight</h3><p>Add the rectangular widget. Rotate active lines, or pin one that needs your attention.</p></article></div>
+        <p class="timing">The widget follows an iOS timeline. Choose about 30 minutes, 1 hour, or 3 hours between lines. iOS can delay updates to save battery. It cannot change the line on every unlock.</p>
+      </section>
+      <section class="setup" id="setup" aria-labelledby="setup-title">
+        <div><h2 id="setup-title">Made for iPhone.<br/>Ready for your first build.</h2><p>The native app and widget are open source. This release has no App Store or TestFlight download yet.</p><a class="button" href="https://github.com/kandulanikhilvarma/keepline/blob/main/docs/APPLE-SETUP.md">Open the iPhone setup guide <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></div>
+        <ol><li><strong>Build on a Mac with Xcode.</strong><p>Generate the included Xcode project. Select your Apple team and configure the App Group for both targets.</p></li><li><strong>Install and save your first line.</strong><p>Run the app on your iPhone. Apple signing and the App Group must be active for the shared widget data.</p></li><li><strong>Add Keepline to your home screen.</strong><p>Touch and hold the home screen. Tap Edit, then Add Widget. Search for Keepline and choose the rectangle.</p></li></ol>
+      </section>
+      <section class="privacy" id="privacy" aria-labelledby="privacy-title"><h2 id="privacy-title">A private place<br/>for personal words.</h2><div><p>The iPhone app stores your lines on your device. No account. No remote database. No analytics or advertising.</p><p>You can export your library as a backup and import it later. Backups contain plain text, so keep them somewhere private.</p><p>Your widget is visible to anyone who can see your screen. The site stores its preview draft in this browser only. The hosting provider receives normal web requests.</p><a href="https://github.com/kandulanikhilvarma/keepline/blob/main/SECURITY.md">Read the security notes <span aria-hidden="true">↗</span></a></div></section>
+    </main>
+    <footer><a class="brand" href="#main">Keepline</a><p>Your own words, in sight.</p><a href="https://github.com/kandulanikhilvarma/keepline">Source &amp; Apache-2.0 license</a><a href="mailto:kandulanikhilvarma@gmail.com">Support</a></footer>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

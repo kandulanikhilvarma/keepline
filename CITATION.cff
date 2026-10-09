@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: 'Cite this repository if you use Keepline in research.'
+type: software
+title: Keepline
+version: 1.0.0
+authors:
+  - family-names: Kandula
+    given-names: Nikhilvarma
+repository-code: 'https://github.com/kandulanikhilvarma/keepline'
+license: Apache-2.0

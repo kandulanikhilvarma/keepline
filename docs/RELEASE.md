@@ -25,7 +25,9 @@ The independent website design review ended with `disposition: ship` after all t
 
 The owner supplied the GitHub workflow permission. The native checks run on macOS CI.
 Six core tests passed. The app and widget compiled on Xcode 16.4 for an iPhone simulator.
-The first simulator run passed persistence and invalid-text workflows. Its pin assertion needed a corrected switch interaction.
+Initial simulator runs passed edit, persistence, and invalid-text workflows.
+The pin recording showed a test tap at the switch's rounded edge. The test now taps its center and checks its state before saving.
+The editor also supplies a Done button to dismiss the keyboard.
 The complete suite must pass on the final PR head before merge.
 The final head, check runs, and merged commit appear in [PR 1](https://github.com/kandulanikhilvarma/keepline/pull/1).
 

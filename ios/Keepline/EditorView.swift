@@ -29,6 +29,7 @@ struct EditorView: View {
                 Section("Your line") {
                     TextField("For example: Be calm.", text: $text, axis: .vertical)
                         .lineLimit(1...4).focused($textFocused).accessibilityIdentifier("lineText")
+                        .submitLabel(.done).onSubmit { textFocused = false }
                     Text("\(text.count) of 140 characters").font(.caption).foregroundStyle(text.count > 140 ? .red : .secondary)
                     Text("Use your own words. Keep one thought in each line.").font(.footnote).foregroundStyle(.secondary)
                 }
@@ -53,6 +54,10 @@ struct EditorView: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button(saving ? "Save…" : "Save") { save() }.disabled(saving || text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || text.count > 140)
                         .accessibilityIdentifier("saveLine")
+                }
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button("Done") { textFocused = false }.accessibilityIdentifier("dismissKeyboard")
                 }
             }
             .interactiveDismissDisabled(dirty)

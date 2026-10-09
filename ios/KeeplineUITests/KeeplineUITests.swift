@@ -42,9 +42,12 @@ final class KeeplineUITests: XCTestCase {
         let app = XCUIApplication(); app.launchArguments = ["--ui-test-reset"]; app.launch()
         XCTAssertTrue(app.buttons["firstLine"].waitForExistence(timeout: 10)); app.buttons["firstLine"].tap()
         enter("Read 5 books this month.", in: app)
+        app.buttons["dismissKeyboard"].tap()
         let toggle = app.switches["pinLine"]
-        toggle.coordinate(withNormalizedOffset: CGVector(dx: 0.95, dy: 0.5)).tap()
+        toggle.coordinate(withNormalizedOffset: CGVector(dx: 1, dy: 0.5))
+            .withOffset(CGVector(dx: -45, dy: 0)).tap()
         XCTAssertEqual(toggle.value as? String, "1")
+        let editorShot = XCTAttachment(screenshot: app.screenshot()); editorShot.name = "pinned-editor"; editorShot.lifetime = .keepAlways; add(editorShot)
         app.buttons["saveLine"].tap()
         app.tabBars.buttons["Library"].tap()
         let entry = row("Read 5 books", in: app)

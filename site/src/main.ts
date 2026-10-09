@@ -25,6 +25,10 @@ function update() {
   query('date-fields').hidden = period.value !== 'custom';
   query('widget-line').textContent = value || 'Be calm.';
   query('widget-period').textContent = labels[period.value] ?? 'Always';
+  query('inline-line').textContent = value || 'Be calm.';
+  query('inline-period').textContent = labels[period.value] ?? 'Always';
+  for (const line of [query('widget-line'), query('inline-line')]) line.classList.toggle('long-line', length(value) > 60);
+  query('inline-widget').setAttribute('aria-label', `${value ? 'Your browser preview' : 'Example rectangular widget'}: ${value || 'Be calm.'}`);
   const widget = document.querySelector('.widget')!;
   widget.setAttribute('aria-label', `${value ? 'Your browser preview' : 'Example rectangular widget'}: ${value || 'Be calm.'}`);
   query('preview-label').textContent = value ? 'Your browser preview · not synced to iPhone' : 'Illustrative preview · medium rectangular widget';

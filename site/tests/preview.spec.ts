@@ -45,6 +45,18 @@ test('storage failure gives an honest recovery message', async ({ page }) => {
   await expect(page.getByRole('button', { name: 'Save browser draft' })).toBeEnabled();
 });
 
+test('long lines stay inside the rectangle and mobile input has a nearby preview', async ({ page }, testInfo) => {
+  await page.goto('/');
+  const before = await page.locator('.widget-stage .widget').boundingBox();
+  await page.getByLabel('Your line', { exact: true }).fill('Remember this goal. '.repeat(7));
+  const after = await page.locator('.widget-stage .widget').boundingBox();
+  expect(after?.height).toBe(before?.height);
+  if (testInfo.project.name === 'mobile') {
+    await expect(page.locator('#inline-line')).toBeVisible();
+    await expect(page.locator('#inline-line')).toHaveText('Remember this goal. '.repeat(7).trim());
+  }
+});
+
 test('responsive layout, links, keyboard focus, and accessibility', async ({ page }, testInfo) => {
   await page.goto('/');
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();

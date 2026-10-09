@@ -1,0 +1,68 @@
+name: Verify
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: verify-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  website:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - run: npm ci
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm test
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: website-evidence
+          path: |
+            docs/screenshots/site-*.png
+            site/test-results
+  iphone:
+    runs-on: macos-15
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+      - name: Test core rules and storage
+        run: swift test
+      - name: Generate Xcode project
+        run: |
+          brew install xcodegen
+          cd ios
+          xcodegen generate
+      - name: Test app and build widget
+        run: |
+          SIMULATOR=$(xcrun simctl list devices available -j | python3 -c 'import json,sys; d=json.load(sys.stdin); print(next(x["udid"] for group in d["devices"].values() for x in group if x["name"].startswith("iPhone")))')
+          xcodebuild test -project ios/Keepline.xcodeproj -scheme Keepline -destination "platform=iOS Simulator,id=$SIMULATOR" -parallel-testing-enabled NO -derivedDataPath DerivedData -resultBundlePath work/iphone.xcresult
+      - name: Export native screenshots
+        if: always()
+        run: |
+          if [ -d work/iphone.xcresult ]; then
+            xcrun xcresulttool export attachments --path work/iphone.xcresult --output-path work/native-screenshots
+          fi
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: iphone-evidence
+          path: |
+            work/iphone.xcresult
+            work/native-screenshots
+            ios/Keepline.xcodeproj
+            ios/Keepline/Info.plist
+            ios/Keepline/Keepline.entitlements
+            ios/KeeplineWidget/Info.plist
+            ios/KeeplineWidget/KeeplineWidget.entitlements

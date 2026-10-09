@@ -36,7 +36,7 @@ Save a short line. Keep that line visible on the iPhone home screen. Rotate acti
 - A day ends at local midnight. Month and year goals end with the current calendar period.
 - A custom period includes both dates. Expired lines stay in the library until the user changes or deletes them.
 - Lines contain at most 140 characters. One line can wrap visually in the widget.
-- The browser preview keeps its own local draft. It does not install or synchronize an iPhone widget.
+- The browser preview keeps its own local draft. The preview does not install or synchronize an iPhone widget.
 
 ## Brand Commitments
 
@@ -63,7 +63,7 @@ The user has neither a Mac nor an Apple Developer account.
 
 The app source is free under Apache-2.0. The release has no paid app features.
 GitHub hosts the public repository and CI. Vercel hosts the static site.
-Apple controls signing, distribution, and store acceptance. No Apple agreement or paid enrollment is authorized by this release.
+Apple controls signing, distribution, and store acceptance. The owner must approve enrollment costs and personally accept Apple agreements.
 
 ## Roadmap
 

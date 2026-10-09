@@ -3,7 +3,7 @@
 ## Public website
 
 The connected Vercel project is `keepline`.
-Its root is `site`. It runs `npm ci` and `npm run build`.
+The project root is `site`. The project runs `npm ci` and `npm run build`.
 Vite places static assets in `site/dist`.
 The site needs no environment variables, backend, account provider, or database.
 

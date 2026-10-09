@@ -145,7 +145,7 @@ struct LibraryView: View {
     @EnvironmentObject private var model: AppModel
     @State private var filter = "Current"
     @State private var deleteID: UUID?
-    private var lines: [Line] { model.library.lines.filter { filter == "Archived" ? $0.archived : !$0.archived }.reversed() }
+    private var lines: [Line] { Array(model.library.lines.filter { filter == "Archived" ? $0.archived : !$0.archived }.reversed()) }
     var body: some View {
         NavigationStack {
             List {

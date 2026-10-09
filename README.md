@@ -41,7 +41,7 @@ The browser draft stays separate from the iPhone library.
 <img src="docs/screenshots/site-mobile-viewport.png" width="390" alt="Keepline website on a narrow mobile screen" />
 
 Native screenshots from the simulator appear in the CI evidence when its run completes.
-Those screenshots use isolated test records. They do not represent customer activity.
+Native test screenshots use isolated records. The screenshots do not represent customer activity.
 
 ## Use the app
 
@@ -65,7 +65,7 @@ Next line clears the pin and advances the current rotation.
 
 The native app uses SwiftUI and WidgetKit. Native Apple APIs supply home-screen widget support.
 The Foundation package keeps date, validation, persistence, and rotation rules independent from the interface.
-The static site uses Vite and TypeScript. It needs no server or environment secrets.
+The static site uses Vite and TypeScript. The site needs no server or environment secrets.
 
 ### iPhone app
 
@@ -97,7 +97,7 @@ npm run dev
 ```
 
 Open the URL that Vite prints.
-The preview can save one local browser draft. It cannot install or synchronize an iPhone widget.
+The preview can save one local browser draft. The preview cannot install or synchronize an iPhone widget.
 
 ## Configuration
 
@@ -161,7 +161,7 @@ npm test
 ```
 
 The core tests check Unicode text, dates, leap years, time zones, midnight boundaries, rotation, pins, persistence, and recovery.
-They also check invalid imports, duplicate identifiers, file limits, and repeated saves.
+The tests also check invalid imports, duplicate identifiers, file limits, and repeated saves.
 Browser tests check desktop and mobile workflows, keyboard focus, layout, accessibility, and unavailable storage.
 GitHub CI also builds the native app and widget, then runs the app workflow on an iPhone simulator.
 

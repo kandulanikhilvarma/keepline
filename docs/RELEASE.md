@@ -1,6 +1,6 @@
 # Release evidence
 
-This record distinguishes source implementation from service activation.
+The release record distinguishes source implementation from service activation.
 
 ## Implemented
 
@@ -11,13 +11,17 @@ The repository uses Apache-2.0.
 ## Local checks
 
 - TypeScript checks and the Vite production build passed.
-- Ten Playwright tests passed across desktop and mobile.
+- Twelve Playwright tests passed across desktop and mobile.
 - The browser suite included axe checks for WCAG 2 AA and WCAG 2.1 AA.
 - Git whitespace checks passed before the first feature commit.
 
 Two README diagrams passed Mermaid parse and render checks.
 Four YAML files passed parser checks.
 The STE linter reported no errors. Advisory findings need judgment and do not establish dictionary compliance.
+
+The github-hygiene archive contained no helper scripts. Direct checks covered required files, license, manifests, author identity, and commit messages.
+The release used the actual Mermaid parser rather than an absent helper.
+The independent website design review ended with `disposition: ship` after all three findings closed.
 
 The owner supplied the GitHub workflow permission. The native checks now run on macOS CI.
 This record will include the exact verified head and run after those checks complete.

@@ -109,7 +109,10 @@ struct SightView: View {
             List {
                 StorageNotice()
                 Section {
-                    LineCard(line: model.library.selected(at: model.now), failure: !model.ready)
+                    Group {
+                        if !model.ready && model.error == nil { ProgressView("Loading your lines…") }
+                        else { LineCard(line: model.library.selected(at: model.now), failure: !model.ready) }
+                    }
                         .padding(20).frame(minHeight: 180)
                         .listRowBackground(Color("WidgetPaper"))
                 } header: { Text("Widget preview") }

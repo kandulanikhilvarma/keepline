@@ -49,7 +49,7 @@ public struct Line: Codable, Identifiable, Equatable, Sendable {
         var result = self
         result.text = text.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !result.text.isEmpty, result.text.count <= 140,
-              !result.text.unicodeScalars.contains(where: { CharacterSet.controlCharacters.contains($0) }),
+              !result.text.unicodeScalars.contains(where: { $0.properties.generalCategory == .control }),
               !result.text.contains("\u{2028}"), !result.text.contains("\u{2029}") else { throw LineError.invalidText }
         if period == .always {
             guard startDay == nil, endDay == nil else { throw LineError.invalidDates }

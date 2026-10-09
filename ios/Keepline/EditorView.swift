@@ -18,6 +18,8 @@ struct EditorView: View {
     @State private var renewPeriod = false
     @State private var pin = false
     @State private var initialPin = false
+    @State private var draftID = UUID()
+    @State private var saving = false
     @FocusState private var textFocused: Bool
     private var dirty: Bool { text != initialText || period != initialPeriod || pin != initialPin || renewPeriod || (period == .custom && (start != initialStart || end != initialEnd)) }
 
@@ -49,7 +51,7 @@ struct EditorView: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) { Button("Cancel") { if dirty { confirmDiscard = true } else { dismiss() } } }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Save") { save() }.disabled(text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || text.count > 140)
+                    Button(saving ? "Save…" : "Save") { save() }.disabled(saving || text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || text.count > 140)
                         .accessibilityIdentifier("saveLine")
                 }
             }
@@ -72,18 +74,20 @@ struct EditorView: View {
         return day.flatMap { formatter.date(from: $0) } ?? Date()
     }
     private func save() {
-        var line = existing ?? Line(text: text)
+        guard !saving else { return }
+        saving = true
+        var line = existing ?? Line(id: draftID, text: text)
         line.text = text; line.period = period
         if period == .custom { line.startDay = Day.key(start); line.endDay = Day.key(end) }
         else if existing?.period != period || renewPeriod {
             let bounds = Day.bounds(period, at: Date()); line.startDay = bounds.0; line.endDay = bounds.1
         } else if existing == nil { line.startDay = nil; line.endDay = nil }
-        if pin && !line.isActive(at: Date()) { error = "Only an active line can stay pinned. Change its period or turn off the pin."; return }
+        if pin && !line.isActive(at: Date()) { error = "Only an active line can stay pinned. Change its period or turn off the pin."; saving = false; return }
         if model.change({ library in
             try library.upsert(line)
             if pin { library.pinnedID = line.id }
             else if library.pinnedID == line.id { library.pinnedID = nil }
         }) { dismiss() }
-        else { error = model.error }
+        else { error = model.error; saving = false }
     }
 }

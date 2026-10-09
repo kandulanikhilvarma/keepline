@@ -23,14 +23,18 @@ The github-hygiene archive contained no helper scripts. Direct checks covered re
 The release used the actual Mermaid parser rather than an absent helper.
 The independent website design review ended with `disposition: ship` after all three findings closed.
 
-The owner supplied the GitHub workflow permission. The native checks now run on macOS CI.
-This record will include the exact verified head and run after those checks complete.
+The owner supplied the GitHub workflow permission. The native checks run on macOS CI.
+Six core tests passed. The app and widget compiled on Xcode 16.4 for an iPhone simulator.
+The first simulator run passed persistence and invalid-text workflows. Its pin assertion needed a corrected switch interaction.
+The complete suite must pass on the final PR head before merge.
+The final head, check runs, and merged commit appear in [PR 1](https://github.com/kandulanikhilvarma/keepline/pull/1).
 
 ## Provider state
 
 The public repository exists at `kandulanikhilvarma/keepline`.
 The connected Vercel project exists with the public domain `keepline-weld.vercel.app`.
-Production deployment waits for the verified merge.
+Production must use the verified merged commit.
+The final deployment result and public smoke checks belong in the release evidence attached to the source release.
 
 ## Apple activation
 

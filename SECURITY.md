@@ -28,6 +28,11 @@ Do not save secrets in a visible widget.
 Exported backups contain plain text. Store backups in a private location.
 
 The website keeps one preview draft in browser storage. The site has no synchronization API.
+The personal editor keeps a separate browser library and caches its public assets for offline use.
+The page generates widget files locally. The export does not upload personal lines.
+Scriptable widget files contain plain text and make no network requests.
+Scriptable can synchronize script files through iCloud if the user enables that feature.
+Personal backups and native app backups use separate formats.
 Vercel receives normal website requests. The site adds no analytics or advertising scripts.
 
 ## Validation

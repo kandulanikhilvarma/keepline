@@ -10,6 +10,7 @@ Save a word, a short reminder, or a goal. The widget repeats active lines throug
 You supply every personal line. The app starts with an empty library.
 
 The [public site](https://keepline-weld.vercel.app) explains the app and supplies a browser preview.
+The [personal editor](https://keepline-weld.vercel.app/personal.html) creates a widget file that you can test with only your iPhone and Scriptable.
 The iPhone source release needs Apple signing before device installation.
 There is no App Store or TestFlight download yet.
 See the [Apple setup guide](docs/APPLE-SETUP.md) and [release evidence](docs/RELEASE.md).
@@ -42,6 +43,28 @@ The browser draft stays separate from the iPhone library.
 
 Native screenshots from the simulator appear in the CI evidence when its run completes.
 Native test screenshots use isolated records. The screenshots do not represent customer activity.
+
+<img src="docs/screenshots/personal-mobile-viewport.png" width="390" alt="My Keepline personal editor with an isolated saved test line" />
+
+## Test with only your iPhone
+
+1. Open [My Keepline](https://keepline-weld.vercel.app/personal.html) in Safari.
+2. Save your own lines and choose their periods.
+3. Install the free [Scriptable app](https://apps.apple.com/in/app/scriptable/id1405459188).
+4. Copy your generated widget code into a Scriptable script named Keepline.
+5. Run the script to preview it.
+6. Add a medium Scriptable widget and select the Keepline script.
+
+You can also download `Keepline.js` and move it into Scriptable's iCloud folder, if available.
+The copy route works without that folder.
+The [iPhone-only guide](docs/IPHONE-ONLY.md) includes recovery and exact setup steps.
+
+The personal editor keeps up to 50 local lines, with edit, pin, archive, restore, delete, and JSON backups.
+It can open offline after setup. Safari can add the editor as a home-screen shortcut.
+Scriptable supplies the actual rectangular widget. A browser shortcut alone cannot supply that widget.
+After changes, copy the updated code into the same Scriptable script. There is no automatic synchronization.
+The generated script contains your words and makes no network requests.
+Scriptable can synchronize scripts through iCloud if you enable that feature.
 
 ## Use the app
 
@@ -148,6 +171,9 @@ flowchart TD
 
 The website has a separate local browser draft. It makes no request with the draft's text.
 Vercel serves the static page, scripts, and font files.
+The personal editor has its own browser library and offline asset cache.
+It generates a self-contained Scriptable file with a checked snapshot of that library.
+The snapshot filters active dates, pins, and archived lines each time the widget runs.
 
 ## Validation
 
@@ -163,10 +189,13 @@ npm test
 The core tests check Unicode text, dates, leap years, time zones, midnight boundaries, rotation, pins, persistence, and recovery.
 The tests also check invalid imports, duplicate identifiers, file limits, and repeated saves.
 Browser tests check desktop and mobile workflows, keyboard focus, layout, accessibility, and unavailable storage.
+Personal tests also check exports, clipboard recovery, offline loads, and the generated widget's documented host API contract.
+Host API tests use isolated mocks. They do not establish rendering in the real Scriptable app.
 GitHub CI also builds the native app and widget, then runs the app workflow on an iPhone simulator.
 
 Automated accessibility checks cannot replace real VoiceOver and device tests.
 Real-device signing, home-screen widget behavior, and Apple acceptance need the owner's Apple setup.
+The Scriptable test route uses its installed App Store host and needs acceptance on the user's iPhone.
 The [release record](docs/RELEASE.md) separates completed checks from activation requirements.
 
 ## Deployment and cost

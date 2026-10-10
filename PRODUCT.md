@@ -29,6 +29,9 @@ Save a short line. Keep that line visible on the iPhone home screen. Rotate acti
 - Keep all records in the local App Group container. Use no cloud account, analytics, or payment service.
 - iOS controls actual widget updates. A new line on every unlock is not available.
 - iPhone installation needs Apple signing. App Store distribution needs the owner's Apple account and review.
+- An iPhone-only test route exports personal JavaScript for the installed Scriptable widget host.
+- Its browser editor keeps up to 50 lines, has personal backups, and can open offline after setup.
+- Browser changes require another export to Scriptable. The test route has no automatic synchronization.
 
 ## Assumptions
 
@@ -47,6 +50,8 @@ The user delegated the name and design. The chosen name is Keepline. The app use
 The user's examples are “Be calm.”, “Read 5 books in a month”, and an annual goal of 10 lakhs.
 Examples appear only as labeled previews. Production records start empty.
 The user has neither a Mac nor an Apple Developer account.
+The user asked to make the product personal and test a widget from a file using only an iPhone.
+The personal editor and Scriptable export serve that request without developer program enrollment.
 
 ## First Release Acceptance
 

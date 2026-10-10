@@ -3,6 +3,8 @@
 The repository contains an iPhone app and a WidgetKit extension.
 The public site is active only as a setup guide and browser preview.
 An App Store or TestFlight release needs separate Apple activation.
+For a test with only your iPhone, use the [personal Scriptable route](IPHONE-ONLY.md).
+That route uses an existing App Store widget host and needs no personal developer membership.
 
 ## Requirements
 

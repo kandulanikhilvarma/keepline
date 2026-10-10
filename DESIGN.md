@@ -122,6 +122,15 @@ components:
     rounded: "{rounded.widget-mobile}"
     padding: "18px 22px"
     height: "180px"
+  widget-preview-personal:
+    backgroundColor: "{colors.tint}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.widget}"
+    padding: "20px 24px"
+    height: "185px"
+  widget-preview-personal-mobile:
+    rounded: "{rounded.widget-mobile}"
+    height: "180px"
 ---
 
 # Design System: Keepline
@@ -133,6 +142,8 @@ components:
 Keepline gives one personal line a quiet place in sight. The desk memo direction uses direct text and plain digital surfaces. Broad margins separate the line from controls. Fine rules divide secondary content.
 
 The website uses serif headlines and a rectangular preview. The iPhone app uses native navigation, forms, and lists. The shared line card carries the visual identity into the app and widget. The app and website share a palette direction. Each platform has separate type and layout rules.
+
+The personal editor extends the same desk memo world. Saved words lead the preview and library. Settings stay within a disclosure beneath the library.
 
 **Key Characteristics:**
 
@@ -217,6 +228,8 @@ The website self-hosts Newsreader under its OFL license. Serif type gives the pe
 
 - **Input line** uses the serif textarea token. The narrow layout reduces it to (22px).
 
+The personal editor uses a compact headline (60px), reduced to (48px) at its own breakpoint. Library lines use serif type (24px). Its preview uses (28px), reduced to (20px) above the shared character threshold.
+
 The native app uses SwiftUI semantic text styles. The shared card uses the system serif at `.title2`, with medium weight. Its period label uses `.caption` with medium weight. Its footer uses `.caption`.
 
 ### Named Rules
@@ -224,6 +237,8 @@ The native app uses SwiftUI semantic text styles. The shared card uses the syste
 **The Two Type Roles Rule.** Use serif type for website headlines and personal lines. Use plain sans-serif type for website controls and secondary text.
 
 Keep native forms, navigation titles, and library text in the iOS system font. Native semantic styles support Dynamic Type. Do not substitute fixed website sizes for those styles.
+
+The Scriptable card uses Georgia (23 points) for personal text. System labels use semibold type (11 points) and regular footer type (10 points). These sizes belong to the Scriptable route.
 
 ## Layout
 
@@ -235,13 +250,21 @@ The nearby browser preview appears below the line field at the narrow breakpoint
 
 The native app uses three tabs: In sight, Library, and Settings. NavigationStack, List, Form, and sheets set the gaps between native controls. The app preview adds internal padding (20 points) with a minimum height (180 points). The widget supports the medium rectangular family.
 
+The personal editor uses a narrower content boundary (1100px) with desktop gutters (36px). Its flexible editor column sits beside a preview column (340px), with a gap (64px). The preview stays visible with a sticky offset (24px).
+
+At (760px), the personal workspace stacks with a gap (28px) and gutters (22px). The preview appears above the editor and becomes static. Fine rules separate the library, settings, and installation help.
+
 ### Named Rules
 
-**The Nearby Preview Rule.** Keep the browser preview close to the line field on narrow screens. Synchronize its text and period with the opening preview.
+**The Nearby Preview Rule.** On the product page, keep the browser preview close to the line field on narrow screens. Synchronize its text and period with the opening preview.
+
+This rule applies to the product page with two previews. The personal editor has one preview of saved lines.
 
 ## Elevation & Depth
 
 The website uses flat sections, fine borders, and background changes for most depth. The opening widget preview has one soft shadow. The nearby mobile preview removes that shadow. Native lists, sheets, and dialogs keep the depth supplied by iOS.
+
+The personal preview remains flat at all widths. Library rows use bottom rules rather than separate cards.
 
 ### Shadow Vocabulary
 
@@ -259,6 +282,8 @@ Website buttons change their background over (150ms). Focus uses an immediate ou
 Website controls use small rounded corners. The widget preview uses a wider rounded rectangle. Its height stays fixed across text lengths. Text wraps within that boundary, with at most (4 visible lines).
 
 The shared native card also allows (4 lines). Its minimum text scale is (0.65). WidgetKit supplies the native widget boundary. SwiftUI supplies the list row and form shapes. Do not copy the website radius values into native controls.
+
+The Scriptable card permits (4 lines) with a minimum text scale (0.6). Scriptable supplies the rectangular widget boundary.
 
 SVG strokes supply website icons. SF Symbols supply native icons. Numbered circles show the sequence of introductory steps.
 
@@ -290,11 +315,29 @@ The website header places the brand opposite compact text links. Header links ha
 
 The iPhone app uses native tabs and navigation bars. The line editor appears as a sheet. Native actions use SF Symbols with text labels where the platform control supplies them.
 
+The personal header keeps its widget installation link visible at all widths. Its informational link follows the narrow navigation rule.
+
 ### Widget preview
 
-The website starts with an explicit illustrative line. The website never treats that example as a saved personal record. Text updates use `textContent`. Accessible labels follow the current text. Browser saves keep a separate local draft.
+The product page starts with an explicit illustrative line. The website never treats that example as a saved personal record. Text updates use `textContent`. Accessible labels follow the current text. Product preview saves keep a separate local draft.
 
 The native card has explicit empty and storage-failure messages. One accessibility element combines its period, personal line, and footer. The shared card uses the native paper asset in both the app preview and widget.
+
+The personal preview starts empty. Its top row shows the period and optional name. Its footer names the pin state. Its fixed rectangle uses the personal preview variants.
+
+### Personal library
+
+Saved lines use plain rows with serif text above small metadata. Underlined actions wrap beneath each row. The filter separates current records from archived records. Text identifies active periods and pinned lines.
+
+The editor title identifies the empty, add, or edit state. Text statuses announce save results and errors. Disabled actions keep the shared button treatment. Settings and backups use a native disclosure with the attention outline on focus.
+
+### Named Rules
+
+**The Saved Preview Rule.** Show saved lines in the personal preview. Keep unsaved field text in the editor.
+
+**The Written State Rule.** Name the period and pin state with text. Name empty and unavailable states with text.
+
+The Scriptable card uses forest ink and website paper in light appearance. Its dark appearance follows the native paper and ink colors. The optional name joins the period label. The line and footer keep the same hierarchy as the browser preview.
 
 ## Do's and Don'ts
 
@@ -305,7 +348,7 @@ The native card has explicit empty and storage-failure messages. One accessibili
 
 - **Do** preserve the fixed rectangle when preview text grows.
 
-- **Do** keep both browser previews synchronized.
+- **Do** keep both product-page previews synchronized.
 
 - **Do** keep semantic styles and native controls.
 

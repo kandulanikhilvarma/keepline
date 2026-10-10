@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-09T10:35:49.570551Z",
+  "generatedAt": "2026-10-10T10:39:08.366314Z",
   "title": "Design System: Keepline",
   "extensions": {
     "colorMeta": {
@@ -281,6 +281,10 @@
       {
         "name": "stacked",
         "value": "580px"
+      },
+      {
+        "name": "personal-stacked",
+        "value": "760px"
       }
     ]
   },
@@ -354,11 +358,19 @@
       "description": "An inline SVG identifies an external reference.",
       "html": "<a class=\"ds-external\" href=\"#security\">Read the security notes <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M6 18L18 6M6 6h12v12\"/></svg></a>",
       "css": ".ds-external{display:inline-flex;align-items:center;gap:8px;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:var(--ink,#223b31);text-underline-offset:5px}.ds-external svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.5;flex:none;width:16px;height:16px}.ds-external:focus-visible{outline:3px solid #a54b2d;outline-offset:4px}"
+    },
+    {
+      "name": "Saved personal preview",
+      "kind": "card",
+      "refersTo": "widget-preview-personal",
+      "description": "The personal editor shows a saved line, its period, optional name, and pin state.",
+      "html": "<div class=\"ds-personal-widget\" role=\"img\" aria-label=\"Saved widget preview: Be calm.\"><div class=\"ds-personal-widget-top\"><span>Always</span><span></span></div><p>Be calm.</p><div class=\"ds-personal-widget-bottom\"><span>Your own words, in sight.</span></div></div>",
+      "css": ".ds-personal-widget{box-sizing:border-box;background:var(--tint,#dce2c6);color:var(--ink,#223b31);border-radius:24px;padding:20px 24px;height:185px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:none;font-family:Arial,Helvetica,sans-serif}.ds-personal-widget-top,.ds-personal-widget-bottom{display:flex;justify-content:space-between;align-items:center;font-size:12px}.ds-personal-widget-top{font-weight:600}.ds-personal-widget-bottom{font-size:11px}.ds-personal-widget p{font-family:Newsreader,Georgia,serif;font-size:28px;letter-spacing:-.025em;line-height:1.16;margin:12px 0;overflow-wrap:anywhere;white-space:normal;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;flex-shrink:1;min-height:0}.ds-personal-widget p.ds-long-line{font-size:20px;line-height:1.15}@media(max-width:760px){.ds-personal-widget{height:180px}}@media(max-width:580px){.ds-personal-widget{border-radius:22px}}"
     }
   ],
   "narrative": {
     "northStar": "Desk memo",
-    "overview": "Keepline gives one personal line a quiet place in sight. The desk memo direction uses direct text and plain digital surfaces. Broad margins separate the line from controls. Fine rules divide secondary content.\n\nThe website uses serif headlines and a rectangular preview. The iPhone app uses native navigation, forms, and lists. The shared line card carries the visual identity into the app and widget. The app and website share a palette direction. Each platform has separate type and layout rules.",
+    "overview": "Keepline gives one personal line a quiet place in sight. The desk memo direction uses direct text and plain digital surfaces. Broad margins separate the line from controls. Fine rules divide secondary content.\n\nThe website uses serif headlines and a rectangular preview. The iPhone app uses native navigation, forms, and lists. The shared line card carries the visual identity into the app and widget. The app and website share a palette direction. Each platform has separate type and layout rules.\n\nThe personal editor extends the same desk memo world. Saved words lead the preview and library. Settings stay within a disclosure beneath the library.",
     "keyCharacteristics": [
       "Personal words take priority over controls.",
       "Paper colors support dark text and quiet dividers.",
@@ -378,19 +390,29 @@
       },
       {
         "name": "The Nearby Preview Rule",
-        "body": "Keep the browser preview close to the line field on narrow screens. Synchronize its text and period with the opening preview.",
+        "body": "On the product page, keep the browser preview close to the line field on narrow screens. Synchronize its text and period with the opening preview.",
         "section": "layout"
       },
       {
         "name": "The Quiet Depth Rule",
         "body": "Use borders and surface colors for separation. Reserve the custom shadow for the opening widget preview.",
         "section": "elevation"
+      },
+      {
+        "name": "The Saved Preview Rule",
+        "body": "Show saved lines in the personal preview. Keep unsaved field text in the editor.",
+        "section": "components"
+      },
+      {
+        "name": "The Written State Rule",
+        "body": "Name the period and pin state with text. Name empty and unavailable states with text.",
+        "section": "components"
       }
     ],
     "dos": [
       "Do give personal words priority over controls.",
       "Do preserve the fixed rectangle when preview text grows.",
-      "Do keep both browser previews synchronized.",
+      "Do keep both product-page previews synchronized.",
       "Do keep semantic styles and native controls.",
       "Do explain errors with text as well as color.",
       "Do use SVG icons on the website and SF Symbols in the app.",

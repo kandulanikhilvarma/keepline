@@ -8,7 +8,23 @@ The source includes the native app, rectangular WidgetKit extension, local recor
 The website includes setup, privacy, and a persistent browser draft.
 The repository uses Apache-2.0.
 
-## Local checks
+## Personal iPhone test route
+
+The personal editor adds local records, backups, offline support, and a downloadable Scriptable widget file.
+Users can install its host from the App Store and configure the medium rectangle using only an iPhone.
+Browser changes require a new export. Personal words do not enter hosting requests.
+The generated script uses documented Scriptable APIs and makes no network requests.
+Automated host tests use mocks. Physical iPhone installation and rendering remain user acceptance steps.
+See `IPHONE-ONLY.md` for instructions.
+
+## Personal route checks
+
+TypeScript and the production build passed. Twenty-eight browser checks passed across desktop and mobile.
+The checks cover personal records, dates, pins, export, clipboard recovery, offline use, and accessibility.
+Exported JavaScript passed host API tests with isolated mocks. These tests do not confirm physical widget rendering.
+The final CI and deployment evidence belongs in the source release record.
+
+## Original 1.0.0 checks
 
 - TypeScript checks and the Vite production build passed.
 - Twelve Playwright tests passed across desktop and mobile.

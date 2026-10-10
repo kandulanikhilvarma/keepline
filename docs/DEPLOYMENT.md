@@ -11,7 +11,7 @@ The Vercel project uses the available free plan defaults.
 The release does not enable paid build machines, databases, domains, or add-ons.
 
 GitHub is the source of record. Production must use the merged commit from `main`.
-Record the deployment identifier and source commit in `docs/RELEASE.md` after activation.
+Record the deployment identifier and source commit in the published release evidence after activation.
 Check the public page, setup link, draft save, reload, clear, and storage-failure message.
 
 `site/vercel.json` supplies security headers. The site self-hosts its font.
@@ -23,6 +23,9 @@ Vercel cannot deploy an iOS widget to an iPhone.
 Use the Apple steps in `APPLE-SETUP.md` for device signing and distribution.
 GitHub CI checks the native code on a simulator.
 CI does not activate App Store Connect, TestFlight, or device provisioning.
+The personal editor exports a JavaScript file for the existing Scriptable app.
+Its widget needs the user's installation and configuration of that host.
+See `IPHONE-ONLY.md` for the iPhone-only test route.
 
 ## Release procedure
 
